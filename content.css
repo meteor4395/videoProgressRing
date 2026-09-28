@@ -1,0 +1,52 @@
+.video-progress-ring {
+    position: fixed;
+    inset: auto;
+    z-index: 2147483647;
+    display: grid;
+    place-items: center;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    color: #fff;
+    border: 0;
+    background: transparent;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 5px rgb(0 0 0 / 55%));
+}
+
+.video-progress-ring[hidden] {
+    display: none;
+}
+
+.video-progress-ring svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transform: rotate(-90deg);
+}
+
+.video-progress-ring circle {
+    fill: rgb(13 22 20 / 76%);
+    stroke-width: 4;
+}
+
+.video-progress-ring__track {
+    stroke: rgb(255 255 255 / 36%);
+}
+
+.video-progress-ring__value {
+    stroke: #56e0ba;
+    stroke-dasharray: 150.8;
+    stroke-dashoffset: var(--progress-offset, 150.8);
+    stroke-linecap: round;
+}
+
+.video-progress-ring__label {
+    position: relative;
+    font: 700 12px/1 "Segoe UI", sans-serif;
+    text-shadow: 0 1px 2px #000;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Progress Ring</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <p class="eyebrow">VIDEO PROGRESS RING</p>
+        <h1>Current site</h1>
+        <div class="site-box">
+            <strong id="current-site">Checking...</strong>
+            <span id="site-status" role="status" aria-live="polite">Loading site settings</span>
+        </div>
+        <button class="site-toggle" id="toggle-site" type="button" disabled>Loading...</button>
+        <button class="settings-button" id="open-settings" type="button">Blacklist and whitelist settings</button>
+    </main>
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Site Settings - Video Progress Ring</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <main class="settings-page">
+        <header class="page-header">
+            <a class="back-link" href="popup.html" aria-label="Video Progress Ring">VIDEO PROGRESS RING</a>
+            <h1>Site settings</h1>
+        </header>
+
+        <form id="settings-form">
+            <fieldset class="mode-fieldset">
+                <legend>Site behavior</legend>
+                <label class="mode-option">
+                    <input type="radio" name="filter-mode" value="blocklist">
+                    <span class="mode-copy">
+                        <strong>Blacklist</strong>
+                        <span>Show on all sites except those listed below.</span>
+                    </span>
+                </label>
+                <label class="mode-option">
+                    <input type="radio" name="filter-mode" value="allowlist">
+                    <span class="mode-copy">
+                        <strong>Whitelist</strong>
+                        <span>Show only on sites listed below.</span>
+                    </span>
+                </label>
+            </fieldset>
+
+            <div class="domains-field">
+                <label for="site-domains">Domains</label>
+                <p id="domains-help">One domain per line. Subdomains are included.</p>
+                <textarea id="site-domains" rows="7" aria-describedby="domains-help" placeholder="example.com&#10;video.example.org"></textarea>
+            </div>
+
+            <div class="form-footer">
+                <p id="save-status" role="status" aria-live="polite"></p>
+                <button type="submit" id="save-settings">Save</button>
+            </div>
+        </form>
+    </main>
+    <script src="options.js"></script>
+</body>
+</html>
