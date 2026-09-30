@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200" height="200" viewBox="0 0 200 200">
+  <title>75 Percent Circular Progress Play Button</title>
+  <desc>Green 75 percent circular progress ring with a black play button in the center.</desc>
+
+  <!-- Background -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#D9D9D9"
+          stroke-width="14" opacity="0.35"/>
+
+  <!-- 75% progress -->
+  <path d="M 100.000 22.000 A 78 78 0 1 1 22.000 100.000" fill="none" stroke="#22C55E"
+        stroke-width="14" stroke-linecap="round"/>
+
+  <!-- Black play button -->
+  <circle cx="100" cy="100" r="42" fill="#000000"/>
+
+  <!-- Play triangle, optically centered -->
+  <path d="M 88 76 L 88 124 L 124 100 Z" fill="#FFFFFF"/>
+</svg>

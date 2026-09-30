@@ -4,6 +4,10 @@ Video Progress Ring is a Firefox extension that displays a compact circular prog
 
 The extension tracks standard HTML video elements. The indicator follows the video as the page scrolls or resizes, and disappears when playback is paused or ends. It does not add controls or change playback.
 
+## Playback Shortcut
+
+While the pointer is over a video, press the mouse wheel (middle-click) to seek forward 10 seconds. The shortcut is enabled by default. To turn it off, uncheck **Middle-click to seek forward 10 seconds** under **Playback behavior** in the extension settings.
+
 ## Site Settings
 
 By default, the extension uses a **blacklist**: the indicator can appear on all sites except domains you list. You can switch to a **whitelist** to show it only on listed domains. Entries match their subdomains too, so `example.com` also matches `video.example.com`.
@@ -25,6 +29,6 @@ Temporary add-ons are removed when Firefox closes. To use the extension beyond a
 
 ## Requirements and Limitations
 
-- Firefox 109 or later.
+- Firefox 142 or later.
 - The ring works with HTML video elements on pages where Firefox allows extensions to run. It may not appear on browser-internal pages or in players that do not expose a standard video element.
 - Site filtering is based on the page's domain, and settings are stored with Firefox extension sync storage.

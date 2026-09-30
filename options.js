@@ -1,10 +1,12 @@
 const DEFAULT_SETTINGS = {
     siteFilterMode: "blocklist",
-    siteFilterDomains: []
+    siteFilterDomains: [],
+    middleClickSeekEnabled: true
 };
 
 const form = document.getElementById("settings-form");
 const domainsInput = document.getElementById("site-domains");
+const middleClickSeekInput = document.getElementById("middle-click-seek");
 const status = document.getElementById("save-status");
 
 function showStatus(message, isError = false) {
@@ -38,6 +40,7 @@ async function loadSettings() {
     const saved = await browser.storage.sync.get(DEFAULT_SETTINGS);
     const mode = saved.siteFilterMode === "allowlist" ? "allowlist" : "blocklist";
     document.querySelector(`input[name="filter-mode"][value="${mode}"]`).checked = true;
+    middleClickSeekInput.checked = saved.middleClickSeekEnabled !== false;
     domainsInput.value = Array.isArray(saved.siteFilterDomains)
         ? saved.siteFilterDomains.join("\n")
         : "";
@@ -55,7 +58,8 @@ form.addEventListener("submit", async (event) => {
     try {
         await browser.storage.sync.set({
             siteFilterMode: mode,
-            siteFilterDomains: domains
+            siteFilterDomains: domains,
+            middleClickSeekEnabled: middleClickSeekInput.checked
         });
         domainsInput.value = domains.join("\n");
         showStatus("Settings saved. Open tabs update automatically.");

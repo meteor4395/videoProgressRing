@@ -61,6 +61,22 @@ toggleSiteButton.addEventListener("click", async () => {
     }
 });
 
+browser.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== "sync" || (!changes.siteFilterMode && !changes.siteFilterDomains)) return;
+
+    if (changes.siteFilterMode) {
+        settings.siteFilterMode = changes.siteFilterMode.newValue === "allowlist" ? "allowlist" : "blocklist";
+    }
+    if (changes.siteFilterDomains) {
+        settings.siteFilterDomains = Array.isArray(changes.siteFilterDomains.newValue)
+            ? changes.siteFilterDomains.newValue
+                .filter((domain) => typeof domain === "string")
+                .map((domain) => domain.toLowerCase())
+            : [];
+    }
+    updateToggleButton();
+});
+
 document.getElementById("open-settings").addEventListener("click", () => {
     browser.runtime.openOptionsPage();
 });

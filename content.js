@@ -3,7 +3,8 @@
     const trackedVideos = new Map();
     const defaultSettings = {
         siteFilterMode: "blocklist",
-        siteFilterDomains: []
+        siteFilterDomains: [],
+        middleClickSeekEnabled: true
     };
     let settings = { ...defaultSettings };
     let settingsLoaded = false;
@@ -104,7 +105,8 @@
                 siteFilterMode: saved.siteFilterMode === "allowlist" ? "allowlist" : "blocklist",
                 siteFilterDomains: Array.isArray(saved.siteFilterDomains)
                     ? saved.siteFilterDomains.filter((domain) => typeof domain === "string").map((domain) => domain.toLowerCase())
-                    : []
+                    : [],
+                middleClickSeekEnabled: saved.middleClickSeekEnabled !== false
             };
         } catch {
             settings = { ...defaultSettings };
@@ -125,6 +127,31 @@
         if (event.target instanceof HTMLVideoElement) stopTracking(event.target);
     }, true);
 
+    function getVideoAtClick(event) {
+        const pathVideo = event.composedPath().find((element) => element instanceof HTMLVideoElement);
+        if (pathVideo) return pathVideo;
+
+        if (event.target instanceof Element) {
+            const parentVideo = event.target.closest("video");
+            if (parentVideo instanceof HTMLVideoElement) return parentVideo;
+        }
+
+        return document.elementsFromPoint(event.clientX, event.clientY)
+            .find((element) => element instanceof HTMLVideoElement) || null;
+    }
+
+    document.addEventListener("auxclick", (event) => {
+        if (event.button !== 1 || !settings.middleClickSeekEnabled) return;
+        const video = getVideoAtClick(event);
+        if (!video) return;
+
+        event.preventDefault();
+        const nextTime = video.currentTime + 10;
+        video.currentTime = Number.isFinite(video.duration)
+            ? Math.min(video.duration, nextTime)
+            : nextTime;
+    }, true);
+
     function refreshOverlays() {
         for (const [video, overlay] of trackedVideos) updateOverlay(video, overlay);
         if (trackedVideos.size > 0) requestAnimationFrame(refreshOverlays);
@@ -140,7 +167,11 @@
     window.addEventListener("scroll", scheduleRefresh, true);
 
     browser.storage.onChanged.addListener((changes, areaName) => {
-        if (areaName === "sync" && (changes.siteFilterMode || changes.siteFilterDomains)) loadSettings();
+        if (areaName === "sync" && (
+            changes.siteFilterMode ||
+            changes.siteFilterDomains ||
+            changes.middleClickSeekEnabled
+        )) loadSettings();
     });
     loadSettings();
 })();
